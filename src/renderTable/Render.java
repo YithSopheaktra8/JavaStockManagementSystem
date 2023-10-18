@@ -23,7 +23,6 @@ public class Render {
         t.setColumnWidth(0, 8, 30);
 
         System.out.println((int)Math.ceil(5.0/3));
-
         t.addCell("Stock Management System",cellCenter);
         for(String menu : menus){
             t.addCell(menu);
@@ -38,6 +37,7 @@ public class Render {
     }
 
     public static void renderProduct(ArrayList<Product> products){
+        Scanner input = new Scanner(System.in);
         CellStyle cellCenter = new CellStyle(CellStyle.HorizontalAlign.center);
         CellStyle cellLeft = new CellStyle(CellStyle.HorizontalAlign.left);
         CellStyle cellRight = new CellStyle(CellStyle.HorizontalAlign.right);
@@ -46,6 +46,7 @@ public class Render {
                 ShownBorders.SURROUND_HEADER_AND_COLUMNS);
         t.setColumnWidth(0, 8, 30);
 
+        outer:
         t.addCell("ID");
         t.addCell("NAME");
         t.addCell("PRICE");
@@ -58,38 +59,22 @@ public class Render {
             t.addCell(product.getUnitPrice()+"");
             t.addCell(product.getQuantity()+"");
             t.addCell(product.getDate()+"");
+
         }
-
         int page = (int) Math.ceil((double) products.size()/ totalRow);
-
-//        for(int i = 0 ; i<totalRow; i++){
-//            Product product = products.get(i);
-//            t.addCell(product.getProductID()+"");
-//            t.addCell(product.getProductName());
-//            t.addCell(product.getUnitPrice()+"");
-//            t.addCell(product.getQuantity()+"");
-//            t.addCell(product.getDate()+"");
-//        }
-
-
         Table table = new Table(2,BorderStyle.UNICODE_BOX_DOUBLE_BORDER_WIDE,ShownBorders.SURROUND_HEADER_AND_COLUMNS);
         table.setColumnWidth(0,10,50);
         table.setColumnWidth(1,10,50);
-
 
         table.addCell("Page : "+page,cellLeft);
         table.addCell("Total record : "+products.size(),cellRight);
 
         table.addCell("(P)Previous page",cellLeft);
         table.addCell("(N)Next page",cellRight);
-
         System.out.println(t.render());
         System.out.println(table.render());
     }
 
-    public static void renderNextRecord(ArrayList<Product> products){
-
-    }
 
     public static void renderAddProduct(ArrayList<Product> products){
         Scanner input = new Scanner(System.in);
@@ -98,7 +83,6 @@ public class Render {
         Table t = new Table(1, BorderStyle.UNICODE_BOX_DOUBLE_BORDER_WIDE,
                 ShownBorders.SURROUND_HEADER_FOOTER_AND_COLUMNS);
         t.setColumnWidth(0, 8, 30);
-
         products.add(new Product().inputProduct(input));
         t.addCell("Add product to Stock successfully",cellCenter);
         System.out.println(t.render());
@@ -235,11 +219,7 @@ public class Render {
                 System.out.println("Product ID not found!");
             }
         }
-
-
-
         System.out.println(t.render());
-
     }
 
 }
